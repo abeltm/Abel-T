@@ -1,39 +1,49 @@
-const express = require('express');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+
 const app = express();
 
-// Set the view engine to use ejs
-app.set('view engine', 'ejs');
+// set up template engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// Serve static files
-app.use(express.static('public'));
+// use body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// Homepage route
-app.get('/', (req, res) => {
-  res.render('home');
+// define routes
+app.get("/", function(req, res) {
+  res.render("home");
 });
 
-// About me route
-app.get('/about', (req, res) => {
-  res.render('about');
+app.get("/about", function(req, res) {
+  res.render("about");
 });
 
-// Project page route
-app.get('/projects', (req, res) => {
-  res.render('projects');
+app.get("/projects", function(req, res) {
+  res.render("projects");
 });
 
-// Service page route
-app.get('/services', (req, res) => {
-  res.render('services');
+app.get("/services", function(req, res) {
+  res.render("services");
 });
 
-// Contact me page route
-app.get('/contact', (req, res) => {
-  res.render('contact');
-});m
+app.get("/contact", function(req, res) {
+  res.render("contact");
+});
 
-// Start the Express app
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+app.post("/contact", function(req, res) {
+  const name = req.body.name;
+  const email = req.body.email;
+  const message = req.body.message;
+  
+  // send email with the contact information
+  // ...
+
+  res.render("contact-success", { name: name });
+});
+
+// start server
+app.listen(3000, function() {
+  console.log("Server started on port 3000");
 });
