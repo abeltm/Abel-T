@@ -1,49 +1,48 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 
-// set up template engine
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-// use body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+// Parse incoming request bodies as JSON
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// define routes
-app.get("/", function(req, res) {
-  res.render("home");
+// Set the view engine to use EJS
+app.set('view engine', 'ejs');
+
+// Use the "views" directory to store views
+app.set('views', path.join(__dirname, 'views'));
+
+// Define the routes
+app.get('/', (req, res) => {
+  res.render('home');
 });
 
-app.get("/about", function(req, res) {
-  res.render("about");
+app.get('/about', (req, res) => {
+  res.render('about');
 });
 
-app.get("/projects", function(req, res) {
-  res.render("projects");
+app.get('/projects', (req, res) => {
+  res.render('projects');
 });
 
-app.get("/services", function(req, res) {
-  res.render("services");
+app.get('/services', (req, res) => {
+  res.render('services');
 });
 
-app.get("/contact", function(req, res) {
-  res.render("contact");
+app.get('/contact', (req, res) => {
+  res.render('contact');
 });
 
-app.post("/contact", function(req, res) {
-  const name = req.body.name;
-  const email = req.body.email;
-  const message = req.body.message;
-  
-  // send email with the contact information
-  // ...
-
-  res.render("contact-success", { name: name });
+app.post('/contact', (req, res) => {
+  res.render('contact-success');
 });
 
-// start server
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+// Start the server on the port specified in the `PORT` environment variable, or on port 3000 if it is not set
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
 });
