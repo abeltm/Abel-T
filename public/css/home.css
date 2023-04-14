@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.navbar-brand {
+  color: #fff;
+}
+
+.navbar-nav a {
+  color: #fff;
+}
+
+.jumbotron {
+  background: url("docs/logo.png") center center;
+  background-size: cover;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jumbotron h1 {
+  color: #fff;
+}
+
+.jumbotron p {
+  color: #fff;
+  max-width: 600px;
+  text-align: center;
+}
+
+.rounded-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  margin: 0 auto;
+  display: block;
+}
